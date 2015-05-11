@@ -1,1 +1,4 @@
-# daten_statt_worte
+Daten statt Worte
+-----------------
+
+Ein Spiel zum Lachen.
