@@ -3,6 +3,7 @@ use Modern::Perl;
 use DBI;
 use DBD::SQLite;
 use Mojolicious::Lite;
+use Helpers;
 
 my $dbh = DBI->connect("dbi:SQLite:dbname=../data/schicksack.db","","")
     or die $!;
@@ -41,10 +42,13 @@ get '/' => sub {
         say Dumper $row;
         $reaction_string .= $row->[1];
     }
-    $c->render(
-    header =>
-    text => "<h1>Schicksack</h1>Daten statt Worte<br/><br/>Farbe? $links_string $situation_string $reaction_string"
-    );
+    my $text =  "<h1>Daten statt Worte</h1>Ein Spiel zum Lachen<br/><br/>Farbe?
+                $links_string
+                $situation_string
+                $reaction_string";
+    $text = Helpers::convert_umlauts($text);
+
+    $c->render(text => $text);
 };
 
 app-start;
